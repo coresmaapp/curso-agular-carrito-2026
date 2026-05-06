@@ -1,0 +1,80 @@
+.topbar{
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .topbar__inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    gap: 16px;
+  }
+  
+  .topbar__actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  /* routerLinkActive añade esta clase; hay que estilarla para ver el estado activo */
+  .topbar__actions .btn.btn--ghost.is-active{
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    background: #eff6ff;
+  }
+  
+  .topbar__actions .btn.btn--primary.is-active{
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+  }
+  
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 240px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .brand:visited{ color: inherit; }
+  .brand:hover{ color: inherit; }
+  
+  .brand__logo{
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #111827;
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    letter-spacing: .5px;
+  }
+  .brand__name{ font-weight: 800; }
+  .brand__tag{ color: var(--muted); font-size: 12px; margin-top: 2px; }
+  
+  @media (max-width: 640px){
+    .topbar__inner{
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+  
+    .brand{
+      min-width: 0;
+      flex: 1 1 220px;
+    }
+  
+    .brand__text{ min-width: 0; }
+    .brand__name, .brand__tag{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  
+    .topbar__actions{
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+  

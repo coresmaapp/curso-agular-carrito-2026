@@ -1,0 +1,28 @@
+<main class="container page">
+    <section class="page__head page__head--wide">
+      <div>
+        <h1 class="h1">Productos</h1>
+        <p class="muted">Catálogo (datos de prueba en el componente, sin servicio).</p>
+      </div>
+      <div class="page__meta">
+        <button class="btn btn--primary" type="button">Nuevo producto</button>
+      </div>
+    </section>
+  
+    <section class="grid grid--single-wide">
+      <article class="card">
+        <header class="card__head">
+          <h2 class="h2">Listado</h2>
+          <div class="muted">10 ítems</div>
+        </header>
+  
+        
+        <app-product-table [products] = "products" 
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+        />
+        
+  
+      </article>
+    </section>
+  </main>

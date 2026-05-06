@@ -1,0 +1,40 @@
+<main class="container page page--center">
+    <section class="page__head page__head--narrow">
+      <div>
+        <h1 class="h1">Iniciar sesión</h1>
+        <p class="muted">Accede para poder cargar productos.</p>
+      </div>
+    </section>
+  
+    <section class="grid grid--single">
+        <article class="card">
+            <header class="card__head">
+              <h2 class="h2">Login</h2>
+              <div class="muted">Solo cuentas pueden cargar productos</div>
+            </header>
+          
+            <form class="form" autocomplete="on">
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <input id="email" class="input" type="email" placeholder="tu@email.com" />
+              </div>
+              <div class="field">
+                <label class="label" for="pass">Contraseña</label>
+                <input id="pass" class="input" type="password" placeholder="••••••••" />
+              </div>
+              <div class="form__row">
+                <label class="check">
+                  <input type="checkbox" />
+                  <span>Recordarme</span>
+                </label>
+                <a class="link" href="#" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
+              </div>
+              <div class="form__actions">
+                <button class="btn btn--primary" type="button">Entrar</button>
+                <button class="btn btn--ghost" type="button">Crear cuenta</button>
+              </div>
+            </form>
+          </article>
+          
+    </section>
+  </main>
