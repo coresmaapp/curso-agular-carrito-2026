@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://softder.com",
+      "secure": true,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  
