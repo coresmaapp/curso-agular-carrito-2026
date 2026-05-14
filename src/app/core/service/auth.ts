@@ -28,8 +28,17 @@ export class AuthService {
     localStorage.setItem('access_token',token)
   }
 
+  public getAccessToken(): string | null{
+    return localStorage.getItem('access_token')
+  }
+
   private setUser(user: AuthUser): void {
     localStorage.setItem('user', JSON.stringify(user) as string);
+  }
+
+  public getUser(): AuthUser | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 
 }

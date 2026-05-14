@@ -5,13 +5,15 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 
 import { errorInterceptor } from '@core/interceptor/error-interceptor';
-
+import { spinnerInterceptor } from '@core/interceptor/spinner-interceptor';
+import { authInterceptor } from '@core/interceptor/auth-interceptor';
+ 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([errorInterceptor])
+      withInterceptors([spinnerInterceptor,errorInterceptor,authInterceptor])
     )
   ]
 };
