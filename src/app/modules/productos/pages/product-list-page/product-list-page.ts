@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, viewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductTable } from '@modules/productos/components/product-table/product-table'
 
@@ -24,7 +24,8 @@ export class ProductListPage implements OnInit {
   }
 
   public readonly products = signal<ProductInterface[]>([])
-
+  private readonly dialogRef = viewChild.required<ElementRef<HTMLDialogElement>>('ProductDialog')
+  protected readonly editDato = signal<string|null>(null)
   goLogin():void {
     this.router.navigate(['/login'])
   }
@@ -45,4 +46,25 @@ export class ProductListPage implements OnInit {
       this.products.set(data.results?? [])
     });
   }
+  public modalTitle(): string{
+    return this.editDato() ? 'Editar Producto': 'Nuevo producto'
+  }
+
+  public openCreateModal(): void{
+    this.editDato.set(null)
+    queueMicrotask(() =>this.dialogRef().nativeElement.showModal());
+  }
+
+  public closeModal():void{
+    this.dialogRef().nativeElement.close()
+  }
+
+
+  public onDialogBackdrop(event: MouseEvent): void{
+    console.log("onDialogOpen")
+    if(event.target === event.currentTarget){
+      this.closeModal()
+    }
+  }
+
 }

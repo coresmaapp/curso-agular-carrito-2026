@@ -13,14 +13,33 @@
               <div class="muted">Solo cuentas pueden cargar productos</div>
             </header>
           
-            <form class="form" autocomplete="on">
+            <form class="form" autocomplete="on" [formGroup]="loginForm" (ngSubmit)="login()">
               <div class="field">
-                <label class="label" for="email">Email</label>
-                <input id="email" class="input" type="email" placeholder="tu@email.com" />
+                <label class="label" for="email">Nombre de Usuario</label>
+                <input id="email" class="input" type="input" formControlName="username" placeholder="Nombre de Usuario" />
+                
+                @if(loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched){
+                  <p class="error"> Usuario Requerido </p>
+                }
+
+                @if(loginForm.get('username')?.errors?.['minlength'] && loginForm.get('username')?.touched){
+                  <p class="error"> Minimo 3 caracteres </p>
+                }
+
+                @if(loginForm.get('username')?.errors?.['maxlength'] && loginForm.get('username')?.touched){
+                  <p class="error"> Maximo 10 caracteres </p>
+                }
+
+
+
               </div>
               <div class="field">
                 <label class="label" for="pass">Contraseña</label>
-                <input id="pass" class="input" type="password" placeholder="••••••••" />
+                <input id="pass" class="input" type="password" formControlName="password" placeholder="••••••••" />
+
+                @if(loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched){
+                  <p class="error"> Usuario Requerido </p>
+                }
               </div>
               <div class="form__row">
                 <label class="check">
@@ -30,7 +49,7 @@
                 <a class="link" href="#" (click)="$event.preventDefault()">¿Olvidaste tu contraseña?</a>
               </div>
               <div class="form__actions">
-                <button class="btn btn--primary" type="button" (click)="loginForm()">Entrar</button>
+                <button class="btn btn--primary" type="submit" >Entrar</button>
                 <button class="btn btn--ghost" type="button">Crear cuenta</button>
               </div>
             </form>

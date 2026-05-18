@@ -5,7 +5,7 @@
         <p class="muted">Catálogo (datos de prueba en el componente, sin servicio).</p>
       </div>
       <div class="page__meta">
-        <button class="btn btn--primary" type="button" sdfsdfsd>Nuevo producto</button>
+        <button class="btn btn--primary" type="button" (click)="openCreateModal()">Nuevo producto</button>
       </div>
     </section>
   
@@ -28,15 +28,34 @@
   </main>
 
 
-  <!-- <dialog #productDialog class="modal" (click)="onDialogBackdrop($event)">
+  <dialog #ProductDialog class="modal" (click)="onDialogBackdrop($event)">
     <div class="modal__surface card" (click)="$event.stopPropagation()">
       <header class="card__head">
         <h2 class="h2">{{ modalTitle() }}</h2>
       </header>
 
 
-      sdfsdfsdfsdfsdf
+      <form class="form">
+        <div class="field">
+          <label class="label" for="pm-name">Nombre</label>
+          <input id="pm-name" class="input" type="text" placeholder="Ej: Sudadera" />
+        </div>
+        <div class="field">
+          <label class="label" for="pm-price">Precio</label>
+          <input id="pm-price" class="input" type="number" min="0" step="0.01"  />
+        </div>
+        <div class="form__row form__row--2">
+          <div class="field">
+            <label class="label" for="pm-stock">Stock</label>
+            <input id="pm-stock" class="input" type="number" min="0" step="1"  />
+          </div>
+        </div>
+        <div class="form__actions">
+          <button class="btn btn--primary" type="submit">Guardar</button>
+          <button class="btn btn--ghost" type="button">Cancelar</button>
+        </div>
+      </form>
   
   
     </div>
-  </dialog> -->
+  </dialog>
