@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductTable } from '@modules/productos/components/product-table/product-table'
 
 import   { ProductoService } from '@core/service/producto'
-import { ApiResponse, ProductInterface, ProductRequest } from '@modules/productos/models/product.models'
+import { ApiResponse, ProductInterface, ProductRequest, ProductUpdate } from '@modules/productos/models/product.models'
 import { ReactiveFormsModule, FormBuilder, Validators  } from '@angular/forms'
 import { FormErrorService } from '@shared/services/form-error';
 
@@ -27,6 +27,7 @@ export class ProductListPage implements OnInit {
 
   private fb = inject(FormBuilder);
   private formErrorService = inject(FormErrorService);
+  protected readonly editingId = signal<number | null>(null)
 
   public productForm = this.fb.nonNullable.group({
     name:['', [Validators.required,Validators.minLength(3)]],
@@ -45,6 +46,22 @@ export class ProductListPage implements OnInit {
   }
 
   public onEdit(id: number):void{
+
+    const product = this.products().find((p) => p.id === id)
+    if(!product){
+      return
+    }
+    this.editingId.set(id)
+    this.productForm.patchValue({
+      name: product.name,
+      description: product.description,
+      price: Number(product.price),
+      stock: product.stock,
+      category: product.category,
+    })
+
+    this.openCreateModal()
+
     console.log("Edicion del producto",id)
   }
 
@@ -52,13 +69,17 @@ export class ProductListPage implements OnInit {
     console.log("Eliminar producto",id)
   }
 
-
-  public ngOnInit():void{
+  private getAllProduct():void{
     this.productService.getAllProducts()
     .subscribe((data:ApiResponse)=>{
       console.log(data.results)
       this.products.set(data.results?? [])
     });
+  }
+
+
+  public ngOnInit():void{
+    this.getAllProduct();
   }
   public modalTitle(): string{
     return this.editDato() ? 'Editar Producto': 'Nuevo producto'
@@ -104,8 +125,6 @@ export class ProductListPage implements OnInit {
 
 
   public saveProduct(): void{
-    console.log(this.productForm)
-
 
     if(this.productForm.invalid){
       return;
@@ -113,10 +132,32 @@ export class ProductListPage implements OnInit {
 
     const payload = this.productForm.getRawValue()
 
+    const id = this.editingId()
+    if(id === null){
+      
     this.productService.createProduct(payload as ProductRequest)
     .subscribe((reponse:ApiResponse) =>{
 
+      this.getAllProduct();
+      this.closeModal()
+
     })
+    }else{
+
+      const payload: ProductUpdate = {
+        ...this.productForm.getRawValue(),
+        created_by:1
+      }
+
+      this.productService.updateProduct(payload, id)
+    .subscribe((reponse:ApiResponse) =>{
+
+      this.getAllProduct();
+      this.closeModal()
+
+    })
+    }
+
       
   }
 

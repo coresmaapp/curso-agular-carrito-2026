@@ -1,15 +1,3 @@
-export interface ProductoInterface{
-    id: number;
-    name: string;
-    price: number;
-    stock: number;
-    category:ProductCategoy;
-}
-
-export type ProductCategoy = 'Ropa' | 'Calzado' | 'Accesorios';
-
-export const PRODUCT_CATEGORIES: ProductCategoy[] = ['Ropa','Calzado', 'Accesorios']
-
 export interface ApiResponse {
   count: number;
   next: string | null;
@@ -45,4 +33,8 @@ export interface ProductRequest {
   stock: number;
   category: number;
   image_url?: string;
+}
+
+export interface ProductUpdate extends ProductRequest{
+  created_by:number;
 }
