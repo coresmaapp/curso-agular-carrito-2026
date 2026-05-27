@@ -76,3 +76,36 @@
       </article>
     </section>
   </main>
+
+
+  <dialog #checkoutDialog class="modal modal--confirm" (click)="onCheckoutBackdrop($event)">
+    <div class="modal__surface card" (click)="$event.stopPropagation()">
+      <header class="card__head modal__head">
+        <h2 class="h2">Finalizar compra</h2>
+      </header>
+  
+      <form class="modal__form" [formGroup]="checkoutForm" (ngSubmit)="confirmCheckout()" novalidate>
+        <div class="modal__body">
+          <div class="field">
+            <label class="label" for="ship-address">Dirección de envío</label>
+            <textarea
+              id="ship-address"
+              class="input"
+              rows="3"
+              formControlName="shipping_address"
+              placeholder="Calle, número, colonia, ciudad"
+            ></textarea>
+          </div>
+          <div class="field">
+            <label class="label" for="ship-notes">Notas (opcional)</label>
+            <input id="ship-notes" class="input" type="text" formControlName="notes" />
+          </div>
+        </div>
+        <footer class="modal__foot">
+          <button class="btn btn--ghost" type="button" (click)="closeCheckout()">Cancelar</button>
+          <button class="btn btn--primary" type="submit">Confirmar compra</button>
+        </footer>
+      </form>
+    </div>
+  </dialog>
+  

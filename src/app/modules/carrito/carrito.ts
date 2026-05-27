@@ -54,11 +54,60 @@ export class Carrito implements OnInit  {
   protected removeItem(item: CartItemInterface): void {
     const cart = this.cart();
     if (!cart) return;
+
+    this.cartService.removeItem(cart.id, item.id).subscribe((updated) => {
+      this.cart.set(updated);
+      this.toastService.show('Producto quitado del carrito', 'success');
+    });
+  }
+
+  protected closeCheckout(): void {
+    this.checkoutDialogRef().nativeElement.close();
+  }
+
+  protected onCheckoutBackdrop(event: MouseEvent): void {
+    if (event.target === event.currentTarget) {
+      this.closeCheckout();
+    }
   }
 
   protected openCheckout(event: Event): void {
+    event.stopPropagation();
 
+    const cart = this.cart();
+    if (!cart?.items?.length) {
+      return;
+    }
+
+    this.checkoutForm.reset({ shipping_address: '', notes: '' });
+
+    const dialog = this.checkoutDialogRef().nativeElement;
+
+    // setTimeout evita que el mismo clic que abre el modal lo cierre por el backdrop
+    setTimeout(() => dialog.showModal(), 0);
   }
+
+  protected confirmCheckout(): void {
+    if (this.checkoutForm.invalid) {
+      this.checkoutForm.markAllAsTouched();
+      return;
+    }
+
+    const cart = this.cart();
+    if (!cart) return;
+
+    const { shipping_address, notes } = this.checkoutForm.getRawValue();
+
+    this.cartService.checkout(cart.id, { shipping_address, notes: notes || undefined })
+      .subscribe(() => {
+        this.closeCheckout();
+        this.toastService.show('Compra realizada correctamente', 'success');
+        this.router.navigate(['/mis-pedidos']);
+      });
+  }
+
+
+  
 
 
 }

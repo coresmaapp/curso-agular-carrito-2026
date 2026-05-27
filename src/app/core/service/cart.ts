@@ -2,7 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
-
+'';
+import { OrderInterface } from '@modules/pedidos/order.model';
 
 import {
   AddToCartPayload,
@@ -35,6 +36,10 @@ export class CartService {
     return this.http.delete<CartInterface>(`${this.url}${cartId}/remove_item/`, {
       body: { item_id: itemId },
     });
+  }
+
+  public checkout(cartId: number, payload: CheckoutPayload): Observable<OrderInterface> {
+    return this.http.post<OrderInterface>(`${this.url}${cartId}/checkout/`, payload);
   }
 
 
