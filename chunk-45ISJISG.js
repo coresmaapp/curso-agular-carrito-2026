@@ -1,0 +1,1 @@
+import{I as c,ba as e}from"./chunk-MUPZ623F.js";var r=class s{message=e(null);type=e("success");visible=e(!1);show(t,i="success"){this.message.set(t),this.type.set(i),this.visible.set(!0),setTimeout(()=>{this.hide()},5e3)}hide(){this.visible.set(!1)}static \u0275fac=function(i){return new(i||s)};static \u0275prov=c({token:s,factory:s.\u0275fac,providedIn:"root"})};export{r as a};
