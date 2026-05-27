@@ -26,4 +26,16 @@ export class CartService {
   public addItem(cartId: number, payload: AddToCartPayload): Observable<CartInterface> {
     return this.http.post<CartInterface>(`${this.url}${cartId}/add_item/`, payload);
   }
+
+  public updateItem(cartId: number, payload: UpdateCartItemPayload): Observable<CartInterface> {
+    return this.http.put<CartInterface>(`${this.url}${cartId}/update_item/`, payload);
+  }
+
+  public removeItem(cartId: number, itemId: number): Observable<CartInterface> {
+    return this.http.delete<CartInterface>(`${this.url}${cartId}/remove_item/`, {
+      body: { item_id: itemId },
+    });
+  }
+
+
 }
